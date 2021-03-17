@@ -93,7 +93,7 @@ server.post("/card/", (req, res) => {
       response.cardURL =
         "https://localhost:3000/card/" + result.lastInsertRowid;
     } else {
-      response.cardURL = `https://dayana-awsone.herokuapp.com/card/${result.lastInsertRowid}`;
+      response.cardURL = `https://dayanare/project-modulo-4.herokuapp.com/card/${result.lastInsertRowid}`;
     }
   }
   res.json(response);
