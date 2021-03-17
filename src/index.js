@@ -98,7 +98,7 @@ server.post("/card/", (req, res) => {
   }
   res.json(response);
 });
-
+/*
 server.get("*", (req, res) => {
   // relative to this directory
   const notFoundFileRelativePath = "../public/404-not-found.html";
@@ -108,3 +108,4 @@ server.get("*", (req, res) => {
   );
   res.status(404).sendFile(notFoundFileAbsolutePath);
 });
+*/
