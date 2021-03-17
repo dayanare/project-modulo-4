@@ -5,7 +5,7 @@ const apiUrl = isDevEnviroment
 
 function api(data) {
   console.log(apiUrl);
-  return fetch("http://localhost:3000/card", {
+  return fetch("https://dayanare/project-modulo-4.herokuapp.com/card", {
     method: "POST",
     body: JSON.stringify(data),
     headers: {

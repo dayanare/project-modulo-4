@@ -88,13 +88,13 @@ server.post("/card/", (req, res) => {
     );
     result.lastInsertRowid;
     // Responder que ha ido bien
-    response.success = true;
+   /* response.success = true;
     if (req.host === "localhost") {
       response.cardURL =
         "https://localhost:3000/card/" + result.lastInsertRowid;
-    } else {
+    } else {*/
       response.cardURL = `https://dayanare/project-modulo-4.herokuapp.com/card/${result.lastInsertRowid}`;
-    }
+   // }
   }
   res.json(response);
 });
