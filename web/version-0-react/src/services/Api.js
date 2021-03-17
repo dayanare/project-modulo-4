@@ -1,11 +1,11 @@
 const isDevEnviroment = process.env.NODE_ENV === "development"; // Booleano
 const apiUrl = isDevEnviroment
-  ? "http://localhost:3000/card"
-  : "https://dayanare/project-modulo-4.herokuapp.com/card";
+  ? "http://localhost:3000"
+  : "https://dayanare/project-modulo-4.herokuapp.com";
 
 function api(data) {
   console.log(apiUrl);
-  return fetch("https://dayanare/project-modulo-4.herokuapp.com/card", {
+  return fetch(`${apiUrl}/card`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {

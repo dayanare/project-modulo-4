@@ -30,7 +30,7 @@ server.get("/card/:id", (req, res) => {
 
   console.log(data);
 
-  res.render("/pages/card", data);
+  res.render("/views/pages/card", data);
 });
 
 server.post("/card/", (req, res) => {
@@ -49,7 +49,7 @@ server.post("/card/", (req, res) => {
   //   req.body.palette
   // );
   const response = {};
-
+  
   if (!req.body.name || req.body.name === "") {
     response.success = false;
     response.error = "Mandatory fields: name";
@@ -72,7 +72,6 @@ server.post("/card/", (req, res) => {
     response.success = false;
     response.error = "Mandatory fields: palette";
   } else {
-    // Insertar en la base de datos
     const statement = db.prepare(
       "INSERT INTO cards(name, job, photo, phone, email, linkedin, github, palette) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
     );
@@ -87,13 +86,16 @@ server.post("/card/", (req, res) => {
       req.body.palette
     );
     result.lastInsertRowid;
+  
+    // Insertar en la base de datos
+        console.log(result.lastInsertRowid);
     // Responder que ha ido bien
-   /* response.success = true;
-    if (req.host === "localhost") {
+   response.success = true;
+    /*if (req.host === "localhost") {
       response.cardURL =
         "https://localhost:3000/card/" + result.lastInsertRowid;
     } else {*/
-      response.cardURL = `https://dayanare/project-modulo-4.herokuapp.com/card/${result.lastInsertRowid}`;
+      response.cardURL = `http://localhost:3000/card/${result.lastInsertRowid}`;
    // }
   }
   res.json(response);
