@@ -1,0 +1,8 @@
+@import '../core/_variables.scss';
+@import '../core/_reset.scss';
+@import '../core/_mixins.scss';
+
+.landing {
+  height: 100vh;
+  overflow-y: auto;
+}

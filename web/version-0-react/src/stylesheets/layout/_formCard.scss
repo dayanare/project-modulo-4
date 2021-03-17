@@ -1,0 +1,23 @@
+@import '../core/_variables.scss';
+@import '../core/_reset.scss';
+@import '../core/_mixins.scss';
+.form {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  padding: 27px 20px 31px 20px;
+  @include tablet {
+    width: 329px;
+    float: left;
+    overflow-y: auto;
+  }
+}
+.collapsable__close {
+  .collapsable__content {
+    display: none;
+  }
+  .collapsable__icon {
+    transform: rotate(180deg);
+  }
+}
