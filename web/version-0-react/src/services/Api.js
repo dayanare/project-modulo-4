@@ -1,7 +1,5 @@
 const isDevEnviroment = process.env.NODE_ENV === "development"; // Booleano
-const apiUrl = isDevEnviroment
-  ? "http://localhost:3000/card"
-  : "https://dayana-awsone.herokuapp.com/card";
+const apiUrl = "https://dayana-awsone.herokuapp.com/card";
 
 function api(data) {
   console.log(apiUrl);
