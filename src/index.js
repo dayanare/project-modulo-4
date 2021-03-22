@@ -4,7 +4,6 @@ const path = require("path");
 const Database = require("better-sqlite3");
 
 const server = express();
-
 server.use(cors());
 server.use(express.json({ limit: "10mb" }));
 
@@ -14,12 +13,12 @@ const staticServerPath = "./public"; // relative to the root of the project
 server.use(express.static(staticServerPath));
 
 const serverPort = process.env.PORT || 3000;
+server.set("view engine", "ejs");
 server.listen(serverPort, () => {
   console.log(`Server listening at http://localhost:${serverPort}`);
 });
 
 const db = new Database("./src/data/cards.db", {
-  // this line log in console all data base queries
   verbose: console.log,
 });
 
@@ -27,29 +26,13 @@ server.get("/card/:id", (req, res) => {
   console.log(req.params.id);
   const query = db.prepare("SELECT * FROM cards WHERE id = ?");
   const data = query.get(req.params.id);
-
   console.log(data);
-
-  res.render("/views/pages/card", data);
+  res.render("pages/card", data);
 });
 
-server.post("/card/", (req, res) => {
-  // console.log(req);
-  // const statement = db.prepare(
-  //   "INSERT INTO cards(name, job, photo, phone, email, linkedin, github, palette) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
-  // );
-  // const result = statement.run(
-  //   req.body.name,
-  //   req.body.job,
-  //   req.body.photo,
-  //   req.body.phone,
-  //   req.body.email,
-  //   req.body.linkedin,
-  //   req.body.github,
-  //   req.body.palette
-  // );
+server.post("/card", (req, res) => {
   const response = {};
-  
+
   if (!req.body.name || req.body.name === "") {
     response.success = false;
     response.error = "Mandatory fields: name";
@@ -72,6 +55,7 @@ server.post("/card/", (req, res) => {
     response.success = false;
     response.error = "Mandatory fields: palette";
   } else {
+    // Insertar en la base de datos
     const statement = db.prepare(
       "INSERT INTO cards(name, job, photo, phone, email, linkedin, github, palette) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
     );
@@ -86,17 +70,14 @@ server.post("/card/", (req, res) => {
       req.body.palette
     );
     result.lastInsertRowid;
-  
-    // Insertar en la base de datos
-        console.log(result.lastInsertRowid);
     // Responder que ha ido bien
-   response.success = true;
-    /*if (req.host === "localhost") {
+    response.success = true;
+    if (req.host === "localhost") {
       response.cardURL =
         "https://localhost:3000/card/" + result.lastInsertRowid;
-    } else {*/
-      response.cardURL = `http://localhost:3000/card/${result.lastInsertRowid}`;
-   // }
+    } else {
+      response.cardURL = `https://dayana-awsone.herokuapp.com/${result.lastInsertRowid}`;
+    }
   }
   res.json(response);
 });

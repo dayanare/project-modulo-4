@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "public": "cd web && npm run docs && cd .. && rm -rf public && mv web/docs public"
   },
-  "author": "React Mad Woman",
+  "author": "React Mad Women",
   "license": "ISC",
   "dependencies": {
     "better-sqlite3": "^7.1.2",
