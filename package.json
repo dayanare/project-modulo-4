@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "public": "cd web && npm run docs && cd .. && rm -rf public && mv web/docs public"
+    "public": "cd web && npm run docs && cd .. && rm -rf public && mv web/docs public",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "React Mad Women",
   "license": "ISC",

@@ -4,6 +4,7 @@ const path = require("path");
 const Database = require("better-sqlite3");
 
 const server = express();
+
 server.use(cors());
 server.use(express.json({ limit: "10mb" }));
 
@@ -13,7 +14,6 @@ const staticServerPath = "./public"; // relative to the root of the project
 server.use(express.static(staticServerPath));
 
 const serverPort = process.env.PORT || 3000;
-server.set("view engine", "ejs");
 server.listen(serverPort, () => {
   console.log(`Server listening at http://localhost:${serverPort}`);
 });
@@ -24,13 +24,13 @@ const db = new Database("./src/data/cards.db", {
 
 server.get("/card/:id", (req, res) => {
   console.log(req.params.id);
-  const query = db.prepare("SELECT * FROM cards WHERE id = ?");
+  const query = db.prepare(`SELECT * FROM cards WHERE id = ?`);
   const data = query.get(req.params.id);
   console.log(data);
   res.render("pages/card", data);
 });
 
-server.post("/card", (req, res) => {
+server.post("/card/", (req, res) => {
   const response = {};
 
   if (!req.body.name || req.body.name === "") {
@@ -76,12 +76,12 @@ server.post("/card", (req, res) => {
       response.cardURL =
         "https://localhost:3000/card/" + result.lastInsertRowid;
     } else {
-      response.cardURL = `https://dayana-awsone.herokuapp.com/${result.lastInsertRowid}`;
+      response.cardURL = `https://dayana-awsone.herokuapp.com/card/${result.lastInsertRowid}`;
     }
   }
   res.json(response);
 });
-/*
+
 server.get("*", (req, res) => {
   // relative to this directory
   const notFoundFileRelativePath = "../public/404-not-found.html";
@@ -91,4 +91,3 @@ server.get("*", (req, res) => {
   );
   res.status(404).sendFile(notFoundFileAbsolutePath);
 });
-*/
